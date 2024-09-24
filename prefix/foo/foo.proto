@@ -1,2 +1,3 @@
-syntax = "proto3"
+syntax = "proto3";
 
+import "moo/moo.proto";
