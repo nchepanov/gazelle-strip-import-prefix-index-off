@@ -17,6 +17,7 @@ to break the `proto_strip_import_prefix` directive rewriting of the `imp`orts du
 * run `gazelle` in the repository root
 * result: nothing changed, notice `prefix/foo/BUILD.bazel`, especially `deps = ["//prefix/moo:moo_proto"]`
 
+    ```bazel
     proto_library(
         name = "foo_proto",
         srcs = ["foo.proto"],
@@ -24,10 +25,12 @@ to break the `proto_strip_import_prefix` directive rewriting of the `imp`orts du
         visibility = ["//visibility:public"],
         deps = ["//prefix/moo:moo_proto"],      <<<<<
     )
+    ```
 
 * run `gazelle --index=false` in the repository root
 * notice the change in the `deps` attribute
 
+    ```diff
     diff --git a/prefix/foo/BUILD.bazel b/prefix/foo/BUILD.bazel
     index fab6b89..037722e 100644
     --- a/prefix/foo/BUILD.bazel
@@ -39,6 +42,7 @@ to break the `proto_strip_import_prefix` directive rewriting of the `imp`orts du
     -    deps = ["//prefix/moo:moo_proto"],
     +    deps = ["//moo:moo_proto"],
     )
+    ```
 
 # Expected behavior
 
